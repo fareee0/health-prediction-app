@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 800px; margin: 2rem auto;">
+    <h2><i class="fas fa-file-upload"></i> Upload Reports</h2>
+    <p style="color: #cbd5e1; margin-bottom: 2rem;">Securely upload your medical documents for analysis.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <div class="file-upload-wrapper">
+            <i class="fas fa-cloud-upload-alt"
+                style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+            <h3>Drag & Drop or Click to Upload</h3>
+            <input type="file" name="file" class="form-control" style="margin-top: 1rem; padding: 0.5rem;">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Upload File</button>
+    </form>
+
+    <div style="margin-top: 3rem;">
+        <h3>Your Reports</h3>
+        {% if reports %}
+        <div class="grid-2" style="margin-top: 1rem;">
+            {% for report in reports %}
+            <div class="glass-card" style="padding: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <strong>{{ report.filename }}</strong>
+                    <span
+                        style="font-size: 0.8rem; background: rgba(255,255,255,0.1); padding: 0.2rem 0.5rem; border-radius: 1rem;">{{
+                        report.upload_date.strftime('%Y-%m-%d') }}</span>
+                </div>
+                <div style="color: var(--accent); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                    <i class="fas fa-check-circle" style="color: #10b981;"></i> {{ report.status }}
+                </div>
+                {% if report.analysis %}
+                <div
+                    style="background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; padding: 0.5rem; border-radius: 0.25rem; font-size: 0.9rem; color: #d1fae5;">
+                    <strong>AI Analysis:</strong> {{ report.analysis }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p style="color: #64748b; text-align: center; margin-top: 1rem;">No reports uploaded yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

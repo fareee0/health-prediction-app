@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 800px; margin: 2rem auto;">
+    <h2><i class="fas fa-user-md"></i> Symptom Checker</h2>
+    <p style="color: #cbd5e1; margin-bottom: 2rem;">Select all the symptoms that apply to you.</p>
+
+    <form method="POST">
+        <div class="symptoms-grid">
+            {% for symptom in symptoms %}
+            <label class="checkbox-wrapper">
+                <input type="checkbox" name="symptoms" value="{{ symptom }}">
+                <span>{{ symptom }}</span>
+            </label>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Analyze Symptoms</button>
+    </form>
+
+    {% if prediction %}
+    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
+        <h3 style="color: var(--secondary);">Result: {{ prediction }}</h3>
+        <div class="glass-card"
+            style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); margin-top: 1rem;">
+            <h4><i class="fas fa-prescription-bottle-alt"></i> Prescription & Care</h4>
+            <p style="margin-top: 0.5rem;">{{ prescription }}</p>
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.9rem; color: #94a3b8;">
+            * This is an AI prediction. Please consult a real doctor for serious conditions.
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
