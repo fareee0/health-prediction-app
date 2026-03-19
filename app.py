@@ -9,7 +9,8 @@ from ml_model import predictor
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database_v2.db'
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database_v2.db')
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 # Ensure upload directory exists
